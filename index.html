@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="ms">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>Kehadiran EDHTAR V1</title>
+
+<script
+  src="https://unpkg.com/html5-qrcode"
+  type="text/javascript">
+</script>
+
+<style>
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+
+  margin: 0;
+  padding: 0;
+
+  min-height: 100%;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background:
+    linear-gradient(
+      135deg,
+      #0f172a,
+      #1e293b
+    );
+
+  color: #0f172a;
+
+}
+
+.page {
+
+  min-height: 100vh;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  padding: 20px;
+
+}
+
+.card {
+
+  width:
+    min(
+      94vw,
+      560px
+    );
+
+  background: white;
+
+  border-radius: 24px;
+
+  padding: 25px;
+
+  box-shadow:
+    0 25px 70px
+    rgba(
+      0,
+      0,
+      0,
+      .4
+    );
+
+}
+
+.header {
+
+  text-align: center;
+
+  margin-bottom: 24px;
+
+}
+
+.title {
+
+  font-size:
+    clamp(
+      23px,
+      5vw,
+      34px
+    );
+
+  font-weight: 900;
+
+  color: #0f172a;
+
+}
+
+.subtitle {
+
+  margin-top: 7px;
+
+  font-size: 14px;
+
+  color: #64748b;
+
+}
+
+.field {
+
+  margin-bottom: 17px;
+
+}
+
+.field label {
+
+  display: block;
+
+  margin-bottom: 7px;
+
+  font-size: 13px;
+
+  font-weight: 800;
+
+  color: #334155;
+
+}
+
+.field input,
+.field select {
+
+  width: 100%;
+
+  padding: 14px;
+
+  border:
+    2px solid
+    #e2e8f0;
+
+  border-radius: 12px;
+
+  font-size: 15px;
+
+  outline: none;
+
+  background: #f8fafc;
+
+}
+
+.field input:focus,
+.field select:focus {
+
+  border-color:
+    #4f46e5;
+
+  background: white;
+
+}
+
+.main-btn {
+
+  width: 100%;
+
+  padding: 15px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  background:
+    #4f46e5;
+
+  color: white;
+
+  font-size: 16px;
+
+  font-weight: 900;
+
+  cursor: pointer;
+
+}
+
+.main-btn:disabled {
+
+  opacity: .5;
+
+  cursor: not-allowed;
+
+}
+
+.scanner {
+
+  margin-top: 20px;
+
+  border-radius: 15px;
+
+  overflow: hidden;
+
+  background: #000;
+
+}
+
+#reader {
+
+  width: 100%;
+
+}
+
+.message {
+
+  min-height: 24px;
+
+  margin-top: 15px;
+
+  text-align: center;
+
+  font-size: 14px;
+
+  font-weight: 700;
+
+}
+
+.success {
+
+  color: #15803d;
+
+}
+
+.error {
+
+  color: #dc2626;
+
+}
+
+.info {
+
+  color: #2563eb;
+
+}
+
+.hidden {
+
+  display: none !important;
+
+}
+
+.result {
+
+  margin-top: 20px;
+
+  padding: 18px;
+
+  border-radius: 15px;
+
+  background: #f0fdf4;
+
+  border:
+    1px solid
+    #bbf7d0;
+
+  text-align: center;
+
+}
+
+.result-title {
+
+  font-size: 18px;
+
+  font-weight: 900;
+
+  color: #15803d;
+
+}
+
+.result-detail {
+
+  margin-top: 8px;
+
+  font-size: 14px;
+
+  line-height: 1.6;
+
+  color: #334155;
+
+}
+
+.footer {
+
+  margin-top: 20px;
+
+  text-align: center;
+
+  font-size: 12px;
+
+  color: #94a3b8;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="page">
+
+<div class="card">
+
+
+<div class="header">
+
+  <div class="title">
+    KEHADIRAN EDHTAR
+  </div>
+
+  <div class="subtitle">
+    Jabatan Kecemasan & Trauma HTAR
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     FORM
+     ===================================================== -->
+
+<div id="formSection">
+
+
+  <div class="field">
+
+    <label for="name">
+      NAMA
+    </label>
+
+    <input
+      id="name"
+      type="text"
+      placeholder="Masukkan nama"
+      autocomplete="name"
+    >
+
+  </div>
+
+
+  <div class="field">
+
+    <label for="jawatan">
+      JAWATAN
+    </label>
+
+    <select id="jawatan">
+
+      <option value="">
+        -- Sila pilih jawatan --
+      </option>
+
+    </select>
+
+  </div>
+
+
+  <div class="field">
+
+    <label for="type">
+      JENIS KEHADIRAN
+    </label>
+
+    <select id="type">
+
+      <option value="">
+        -- Sila pilih jenis kehadiran --
+      </option>
+
+    </select>
+
+  </div>
+
+
+  <button
+    id="scanBtn"
+    class="main-btn"
+  >
+    IMBAS QR KEHADIRAN
+  </button>
+
+
+</div>
+
+
+<!-- =====================================================
+     SCANNER
+     ===================================================== -->
+
+<div
+  id="scannerSection"
+  class="hidden"
+>
+
+  <div class="scanner">
+
+    <div id="reader"></div>
+
+  </div>
+
+  <div
+    id="scanMessage"
+    class="message info"
+  >
+    Halakan kamera kepada QR rasmi EDHTAR.
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     RESULT
+     ===================================================== -->
+
+<div
+  id="resultSection"
+  class="result hidden"
+>
+
+  <div class="result-title">
+    ✓ KEHADIRAN BERJAYA
+  </div>
+
+  <div
+    id="resultDetail"
+    class="result-detail"
+  ></div>
+
+</div>
+
+
+<div
+  id="message"
+  class="message"
+></div>
+
+
+<div class="footer">
+
+  Sistem Kehadiran EDHTAR V1
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   GOOGLE APPS SCRIPT URL
+   ===================================================== */
+
+const GOOGLE_SCRIPT_URL =
+  'https://script.google.com/macros/s/AKfycbxBydVvSkFL111NZxfQzh3eBgzmCCVI1KX-rHqNEsTxmEWNg6eV4UPYxDeJQBa4Rhn10g/exec';
+
+
+/* =====================================================
+   VARIABLES
+   ===================================================== */
+
+let html5QrCode = null;
+
+let scannerRunning = false;
+
+let scannedToken = '';
+
+let submitting = false;
+
+
+/* =====================================================
+   CONFIG
+   ===================================================== */
+
+const attendanceTypes = [
+
+  
+  'Mesyuarat Jabatan',
+
+  'CME',
+
+  'Mesyuarat M&M',
+
+  'Taklimat',
+
+  'Latihan / Kursus',
+
+  'Grand Round',
+
+  'Clinical Refresh',
+
+  'Morning Meeting',
+
+  'Lain-lain'
+
+];
+
+
+const positions = [
+
+  'Ketua Jabatan',
+
+  'Pakar Perubatan Kecemasan',
+
+  'Pegawai Perubatan',
+
+  'Penolong Pegawai Perubatan',
+
+  'Ketua Jururawat',
+
+  'Sister',
+
+  'Jururawat',
+
+  'Pembantu Perawatan Kesihatan',
+
+  'Pegawai Farmasi',
+
+  'Pembantu Tadbir',
+
+  'Lain-lain'
+
+];
+
+
+/* =====================================================
+   ELEMENTS
+   ===================================================== */
+
+const nameInput =
+  document.getElementById(
+    'name'
+  );
+
+const jawatanSelect =
+  document.getElementById(
+    'jawatan'
+  );
+
+const typeSelect =
+  document.getElementById(
+    'type'
+  );
+
+const scanBtn =
+  document.getElementById(
+    'scanBtn'
+  );
+
+const scannerSection =
+  document.getElementById(
+    'scannerSection'
+  );
+
+const formSection =
+  document.getElementById(
+    'formSection'
+  );
+
+const scanMessage =
+  document.getElementById(
+    'scanMessage'
+  );
+
+const message =
+  document.getElementById(
+    'message'
+  );
+
+const resultSection =
+  document.getElementById(
+    'resultSection'
+  );
+
+const resultDetail =
+  document.getElementById(
+    'resultDetail'
+  );
+
+
+/* =====================================================
+   POPULATE SELECT
+   ===================================================== */
+
+function populateSelect(
+  element,
+  items
+) {
+
+  items.forEach(
+
+    function(item) {
+
+      const option =
+        document.createElement(
+          'option'
+        );
+
+      option.value =
+        item;
+
+      option.textContent =
+        item;
+
+      element.appendChild(
+        option
+      );
+
+    }
+
+  );
+
+}
+
+
+/* =====================================================
+   MESSAGE
+   ===================================================== */
+
+function setMessage(
+  text,
+  type
+) {
+
+  message.textContent =
+    text;
+
+  message.className =
+    'message';
+
+  if (type) {
+
+    message.classList.add(
+      type
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   START SCANNER
+   ===================================================== */
+
+async function startScanner() {
+
+
+  const name =
+    nameInput.value.trim();
+
+
+  const jawatan =
+    jawatanSelect.value;
+
+
+  const type =
+    typeSelect.value;
+
+
+  /* ---------------------------------------------------
+     VALIDATE
+     --------------------------------------------------- */
+
+  if (!name) {
+
+    setMessage(
+      'Sila masukkan nama.',
+      'error'
+    );
+
+    nameInput.focus();
+
+    return;
+
+  }
+
+
+  if (!jawatan) {
+
+    setMessage(
+      'Sila pilih jawatan.',
+      'error'
+    );
+
+    return;
+
+  }
+
+
+  if (!type) {
+
+    setMessage(
+      'Sila pilih jenis kehadiran.',
+      'error'
+    );
+
+    return;
+
+  }
+
+
+  /* ---------------------------------------------------
+     RESET
+     --------------------------------------------------- */
+
+  setMessage(
+    '',
+    ''
+  );
+
+  resultSection.classList.add(
+    'hidden'
+  );
+
+  scannerSection.classList.remove(
+    'hidden'
+  );
+
+  scanBtn.disabled =
+    true;
+
+
+  /* ---------------------------------------------------
+     CREATE SCANNER
+     --------------------------------------------------- */
+
+  html5QrCode =
+    new Html5Qrcode(
+      'reader'
+    );
+
+
+  try {
+
+    await html5QrCode.start(
+
+      {
+        facingMode:
+          'environment'
+      },
+
+      {
+        fps: 10,
+
+        qrbox: {
+
+          width: 250,
+
+          height: 250
+
+        }
+
+      },
+
+      onScanSuccess,
+
+      onScanFailure
+
+    );
+
+
+    scannerRunning =
+      true;
+
+
+    scanMessage.textContent =
+      'Halakan kamera kepada QR rasmi EDHTAR.';
+
+
+  }
+  catch (error) {
+
+    console.error(
+      'SCANNER ERROR:',
+      error
+    );
+
+
+    scannerSection.classList.add(
+      'hidden'
+    );
+
+    scanBtn.disabled =
+      false;
+
+
+    setMessage(
+      'Kamera tidak dapat dibuka. Sila benarkan akses kamera.',
+      'error'
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   SCAN SUCCESS
+   ===================================================== */
+
+async function onScanSuccess(
+  decodedText
+) {
+
+
+  if (
+    scannedToken ||
+    submitting
+  ) {
+
+    return;
+
+  }
+
+
+  scannedToken =
+    String(
+      decodedText
+    ).trim();
+
+
+  scanMessage.textContent =
+    'QR dikesan. Mengesahkan...';
+
+
+  await stopScanner();
+
+
+  await verifyToken();
+
+}
+
+
+/* =====================================================
+   SCAN FAILURE
+   ===================================================== */
+
+function onScanFailure(
+  errorMessage
+) {
+
+  /*
+
+    Sengaja kosong.
+
+    Scanner akan terus cuba
+    membaca QR.
+
+  */
+
+}
+
+
+/* =====================================================
+   STOP SCANNER
+   ===================================================== */
+
+async function stopScanner() {
+
+  if (
+    !html5QrCode ||
+    !scannerRunning
+  ) {
+
+    return;
+
+  }
+
+
+  try {
+
+    await html5QrCode.stop();
+
+  }
+  catch (error) {
+
+    console.warn(
+      'STOP SCANNER:',
+      error
+    );
+
+  }
+
+
+  scannerRunning =
+    false;
+
+}
+
+
+/* =====================================================
+   VERIFY QR
+   ===================================================== */
+
+async function verifyToken() {
+
+
+  try {
+
+
+    setMessage(
+      'Mengesahkan QR dengan server...',
+      'info'
+    );
+
+
+    console.log(
+      'EDHTAR VERIFY → SERVER'
+    );
+
+
+    const response =
+      await fetch(
+
+        GOOGLE_SCRIPT_URL,
+
+        {
+
+          method:
+            'POST',
+
+          headers: {
+
+            'Content-Type':
+              'text/plain;charset=utf-8'
+
+          },
+
+          body:
+            JSON.stringify({
+
+              action:
+                'verifyQR',
+
+              token:
+                scannedToken
+
+            }),
+
+          cache:
+            'no-store'
+
+        }
+
+      );
+
+
+    console.log(
+      'EDHTAR VERIFY HTTP STATUS:',
+      response.status
+    );
+
+
+    const result =
+      await response.json();
+
+
+    console.log(
+      'EDHTAR VERIFY RESPONSE:',
+      result
+    );
+
+
+    if (
+      !result ||
+      !result.success ||
+      !result.valid
+    ) {
+
+      throw new Error(
+
+        result &&
+        result.message
+
+          ? result.message
+
+          : 'QR tidak sah.'
+
+      );
+
+    }
+
+
+    setMessage(
+      'QR sah. Menyimpan kehadiran...',
+      'info'
+    );
+
+
+    await submitAttendance();
+
+
+  }
+  catch (error) {
+
+    console.error(
+      'EDHTAR VERIFY ERROR:',
+      error
+    );
+
+
+    setMessage(
+      error.message ||
+      'QR tidak dapat disahkan.',
+      'error'
+    );
+
+
+    scannedToken =
+      '';
+
+
+    scanBtn.disabled =
+      false;
+
+
+    scannerSection.classList.add(
+      'hidden'
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   SUBMIT ATTENDANCE
+   ===================================================== */
+
+async function submitAttendance() {
+
+
+  if (
+    submitting
+  ) {
+
+    return;
+
+  }
+
+
+  submitting =
+    true;
+
+
+  try {
+
+
+    const recordId =
+      createRecordId();
+
+
+    const data = {
+
+      action:
+        'submitAttendance',
+
+      id:
+        recordId,
+
+      name:
+        nameInput.value.trim(),
+
+      jawatan:
+        jawatanSelect.value,
+
+      type:
+        typeSelect.value,
+
+      qrToken:
+        scannedToken
+
+    };
+
+
+    console.log(
+      'EDHTAR SUBMIT → SERVER:',
+      data
+    );
+
+
+    const response =
+      await fetch(
+
+        GOOGLE_SCRIPT_URL,
+
+        {
+
+          method:
+            'POST',
+
+          headers: {
+
+            'Content-Type':
+              'text/plain;charset=utf-8'
+
+          },
+
+          body:
+            JSON.stringify(
+              data
+            ),
+
+          cache:
+            'no-store'
+
+        }
+
+      );
+
+
+    console.log(
+      'EDHTAR SUBMIT HTTP STATUS:',
+      response.status
+    );
+
+
+    const result =
+      await response.json();
+
+
+    console.log(
+      'EDHTAR SUBMIT RESPONSE:',
+      result
+    );
+
+
+    if (
+      !result ||
+      !result.success
+    ) {
+
+      throw new Error(
+
+        result &&
+        result.message
+
+          ? result.message
+
+          : 'Kehadiran gagal direkodkan.'
+
+      );
+
+    }
+
+
+    /* -------------------------------------------------
+       SUCCESS
+       ------------------------------------------------- */
+
+    resultDetail.innerHTML =
+
+      '<strong>Nama:</strong> ' +
+      escapeHtml(
+        nameInput.value.trim()
+      ) +
+
+      '<br>' +
+
+      '<strong>Jawatan:</strong> ' +
+      escapeHtml(
+        jawatanSelect.value
+      ) +
+
+      '<br>' +
+
+      '<strong>Jenis:</strong> ' +
+      escapeHtml(
+        typeSelect.value
+      ) +
+
+      '<br>' +
+
+      '<strong>Tarikh:</strong> ' +
+      escapeHtml(
+        result.date || '-'
+      ) +
+
+      '<br>' +
+
+      '<strong>Masa:</strong> ' +
+      escapeHtml(
+        result.time || '-'
+      );
+
+
+    resultSection.classList.remove(
+      'hidden'
+    );
+
+
+    setMessage(
+      'Kehadiran berjaya direkodkan.',
+      'success'
+    );
+
+
+    formSection.classList.add(
+      'hidden'
+    );
+
+    scannerSection.classList.add(
+      'hidden'
+    );
+
+
+  }
+  catch (error) {
+
+    console.error(
+      'EDHTAR SUBMIT ERROR:',
+      error
+    );
+
+
+    setMessage(
+
+      error.message ||
+
+      'Tidak dapat merekodkan kehadiran.',
+
+      'error'
+
+    );
+
+
+    scannedToken =
+      '';
+
+
+    scanBtn.disabled =
+      false;
+
+  }
+  finally {
+
+    submitting =
+      false;
+
+  }
+
+}
+
+
+/* =====================================================
+   CREATE RECORD ID
+   ===================================================== */
+
+function createRecordId() {
+
+  return (
+
+    'EDHTAR-' +
+
+    Date.now() +
+
+    '-' +
+
+    Math.random()
+      .toString(36)
+      .substring(2, 10)
+
+  );
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+   ===================================================== */
+
+function escapeHtml(
+  value
+) {
+
+  return String(
+    value || ''
+  )
+
+    .replace(
+      /&/g,
+      '&amp;'
+    )
+
+    .replace(
+      /</g,
+      '&lt;'
+    )
+
+    .replace(
+      />/g,
+      '&gt;'
+    )
+
+    .replace(
+      /"/g,
+      '&quot;'
+    )
+
+    .replace(
+      /'/g,
+      '&#039;'
+    );
+
+}
+
+
+/* =====================================================
+   BUTTON
+   ===================================================== */
+
+scanBtn.addEventListener(
+
+  'click',
+
+  startScanner
+
+);
+
+
+/* =====================================================
+   INIT
+   ===================================================== */
+
+populateSelect(
+  jawatanSelect,
+  positions
+);
+
+
+populateSelect(
+  typeSelect,
+  attendanceTypes
+);
+
+
+nameInput.focus();
+
+</script>
+
+</body>
+
+</html>
